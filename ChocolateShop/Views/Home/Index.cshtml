@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EntityImageViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+<hr />
+@if (Model != null)
+{
+    foreach (var viewModel in Model)
+    {
+    <div>
+        @viewModel.Id <br />
+        @if (viewModel.Image != null)
+        { <img id="profileImage" src="data:image/jpg;base64,@viewModel.Image"> <br /> }
+        @viewModel.Name
+    </div>
+    }
+}
