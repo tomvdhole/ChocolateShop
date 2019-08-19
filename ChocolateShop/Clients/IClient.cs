@@ -9,7 +9,7 @@ namespace ChocolateShopApp.Clients
     {
         Task<TViewModel> GetEntity(string path, int id);
         Task<IEnumerable<TViewModel>> GetEntities(string path);
-        Task SaveEntity(string path, TViewModel model);
+        Task<TViewModel> SaveEntity(string path, TViewModel model);
         Task UpdateEntity(string path, TViewModel model);
         Task DeleteEntity(string path, TViewModel model);
     }

@@ -31,6 +31,7 @@ namespace ChocolateShop
             services.Configure<WebApiOptions>(Configuration.GetSection("WebApi"));
 
             services.AddHttpClient<IClient<EntityImageViewModel>, Client<EntityImageViewModel>>();
+            services.AddHttpClient<IClient<EntityViewModel>, Client<EntityViewModel>>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

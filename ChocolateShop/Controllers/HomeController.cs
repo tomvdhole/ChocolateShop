@@ -33,17 +33,20 @@ namespace ChocolateShop.Controllers
             try
             {
                 var models = await Client.GetEntities(Options.GetProducts);
-                Logger.LogTrace("Reveived models: ", models);
+                Logger.LogTrace("Received models: ", models);
+
                 return View(models);
             }
             catch(ClientException e)
             {
                 Logger.LogError("{ClientException}", e.Message);
+
                 return View();
             }
             catch(Exception e)
             {
                 Logger.LogCritical("Critical error: {CriticalErrorStackTrace}", e.StackTrace);
+
                 return View();
             }
         }

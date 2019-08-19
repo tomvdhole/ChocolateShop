@@ -114,7 +114,7 @@ namespace ChocolateShopApi.Controllers
 
             if (model.Id != 0)
             {
-                Logger.LogWarning($"id must be 0, passed id = {model.Id}");
+                Logger.LogWarning("id must be 0, passed id = {PassedId}", model.Id);
                 return BadRequest(JsonError($"id must be 0, passed id = {model.Id}"));
             }
 
