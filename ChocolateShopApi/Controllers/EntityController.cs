@@ -16,16 +16,16 @@ namespace ChocolateShopApi.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public abstract class EntityController<TController, TEntity, TViewModel> : ControllerBase
+    public abstract class EntityController<TEntity, TViewModel> : ControllerBase
         where TEntity : EntityBase
         where TViewModel : EntityViewModelBase
     {
-        private ILogger<TController> Logger { get; }
+        private ILogger<ControllerBase> Logger { get; }
         protected IEntityService<TEntity> Service { get; }
 
         private object JsonError(string msg) => new { Error = msg };
 
-        public EntityController(ILogger<TController> logger, IEntityService<TEntity> service)
+        public EntityController(ILogger<ControllerBase> logger, IEntityService<TEntity> service)
         {
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             Service = service ?? throw new ArgumentNullException(nameof(service));
@@ -87,7 +87,7 @@ namespace ChocolateShopApi.Controllers
             }
             catch (EntityException e)
             {
-                Logger.LogError("{EntityException}", e.Message);
+                Logger.LogWarning("{EntityException}", e.Message);
                 return BadRequest(JsonError(e.Message));
             }
             catch (Exception e)
@@ -176,7 +176,7 @@ namespace ChocolateShopApi.Controllers
             }
             catch (EntityException e)
             {
-                Logger.LogError("{EntityException}", e.Message);
+                Logger.LogWarning("{EntityException}", e.Message);
                 return BadRequest(JsonError(e.Message));
             }
             catch (DbUpdateConcurrencyException e)

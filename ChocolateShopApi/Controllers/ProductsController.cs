@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ChocolateShopApi.Controllers
 {
-    public class ProductsController : EntityController<ProductsController, Product, EntityImageViewModel>
+    public class ProductsController : EntityController<Product, EntityImageViewModel>
     {
         public ProductsController(ILogger<ProductsController> logger, IEntityService<Product> service)
             : base(logger, service)

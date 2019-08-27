@@ -8,7 +8,7 @@ using ChocolateShopViewModels;
 
 namespace ChocolateShopApi.Controllers
 {
-    public class BrandsController : EntityController<BrandsController, Brand, EntityViewModel>
+    public class BrandsController : EntityController<Brand, EntityViewModel>
     {
         public BrandsController(ILogger<BrandsController> logger, IEntityService<Brand> service)
             : base(logger, service)

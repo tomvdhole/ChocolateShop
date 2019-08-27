@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChocolateShopApi.Controllers
 {
-    public class CategoriesController : EntityController<CategoriesController, Category, EntityViewModel>
+    public class CategoriesController : EntityController<Category, EntityViewModel>
     {
         public CategoriesController(ILogger<CategoriesController> logger, IEntityService<Category> service)
             : base(logger, service)
