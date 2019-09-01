@@ -1,0 +1,4 @@
+﻿1>------ Build started: Project: ChocolateShopApp, Configuration: Debug Any CPU ------
+1>ChocolateShopApp -> C:\Users\Tom\source\repos\ChocolateShop\ChocolateShop\bin\Debug\netcoreapp2.2\ChocolateShopApp.dll
+1>ChocolateShopApp -> C:\Users\Tom\source\repos\ChocolateShop\ChocolateShop\bin\Debug\netcoreapp2.2\ChocolateShopApp.Views.dll
+========== Build: 1 succeeded, 0 failed, 2 up-to-date, 0 skipped ==========

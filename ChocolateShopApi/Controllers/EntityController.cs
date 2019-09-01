@@ -137,6 +137,11 @@ namespace ChocolateShopApi.Controllers
                 Logger.LogError("Error while saving: {DbUpdateException}", e.Message);
                 return BadRequest("Error while saving to database, please try again later");
             }
+            catch(EntityException e)
+            {
+                Logger.LogWarning("{EntityException}", e.Message);
+                return BadRequest(JsonError(e.Message));
+            }
             catch (Exception e)
             {
                 Logger.LogCritical("Critical error: {CriticalErrorStackTrace}", e.StackTrace);
@@ -219,22 +224,22 @@ namespace ChocolateShopApi.Controllers
                 return BadRequest(JsonError($"id must be > 0, passed id = {id}"));
             }
 
-            var entity = await Service.GetEntity(id);
-            if (entity == null)
-            {
-                Logger.LogWarning("Entity not found {EntityIdNotFound}", id);
-                return NotFound();
-            }
-
             try
             {
+                var entity = await Service.GetEntity(id);
+                if (entity == null)
+                {
+                    Logger.LogWarning("Entity not found {EntityIdNotFound}", id);
+                    return NotFound();
+                }
+
                 await Service.DeleteEntity(entity);
                 Logger.LogTrace("Deleted entity: {DeletedEntity}", entity);
                 return NoContent();
             }
             catch(DbUpdateConcurrencyException e)
             {
-                Logger.LogError(e, "Update Concurrency Exception: {DbUpdateConcurrencyExceptionWithId}", entity.Id);
+                Logger.LogError(e, "Update Concurrency Exception: {DbUpdateConcurrencyExceptionWithId}", id);
                 return Conflict();
             }
             catch(DbUpdateException e)
@@ -242,7 +247,12 @@ namespace ChocolateShopApi.Controllers
                 Logger.LogError("Error while saving: {DbUpdateException}", e.Message);
                 return BadRequest(JsonError("Error while saving to database, please try again later"));
             }
-            catch (Exception e)
+            catch(EntityException e)
+            {
+                Logger.LogWarning("{EntityException}", e.Message);
+                return BadRequest(JsonError(e.Message));
+            }
+            catch(Exception e)
             {
                 Logger.LogCritical("Critical error: {CriticalErrorStackTrace}", e.StackTrace);
                 return StatusCode(500);

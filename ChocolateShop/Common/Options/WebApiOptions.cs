@@ -9,6 +9,9 @@ namespace ChocolateShopApp.Common.Options
     {
         public string BaseUrl { get; set; }
 
+
+        public string Brands { get; set; }
+        public string Products { get; set; }
         public string GetBrands { get; set; }
         public string GetCategories { get; set; }
         public string GetProducts { get; set; }

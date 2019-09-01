@@ -8,6 +8,7 @@ using ChocolateShopApp.Common.Options;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using ChocolateShopApp.Common.Exceptions;
+using System.Linq;
 
 namespace ChocolateShop.Controllers
 {
@@ -32,14 +33,14 @@ namespace ChocolateShop.Controllers
 
             try
             {
-                var models = await Client.GetEntities(Options.GetProducts);
+                var models = await Client.GetEntities(Options.Products);
                 Logger.LogTrace("Received models: ", models);
 
                 return View(models);
             }
             catch(ClientException e)
             {
-                Logger.LogError("{ClientException}", e.Message);
+                Logger.LogWarning("{ClientException}", e.Message);
 
                 return View();
             }
@@ -47,7 +48,7 @@ namespace ChocolateShop.Controllers
             {
                 Logger.LogCritical("Critical error: {CriticalErrorStackTrace}", e.StackTrace);
 
-                return View();
+                return RedirectToAction("Error", "Error");
             }
         }
 

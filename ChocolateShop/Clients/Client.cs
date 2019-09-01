@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace ChocolateShopApp.Clients
             }
             
             var response = await ApiClient.GetAsync(path);
-
+            
             if (response.IsSuccessStatusCode)
             {
                 var models = await response.Content.ReadAsAsync<IEnumerable<TViewModel>>();
@@ -73,6 +74,7 @@ namespace ChocolateShopApp.Clients
                 throw new ClientException($"id must be > 0, passed id = {id}");
             }
 
+
             var response = await ApiClient.GetAsync(path + id);
             if (response.IsSuccessStatusCode)
             {
@@ -82,6 +84,14 @@ namespace ChocolateShopApp.Clients
             }
             else
             {
+                // TO TEST
+
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    Logger.LogWarning("{BadRequest}", content);
+                    throw new ClientException(content);
+                }
                 Logger.LogError("Error happened in called webapi");
                 throw new ClientException("Error happened in called webapi");
             }
