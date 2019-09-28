@@ -33,6 +33,19 @@ namespace ChocolateShopApi.Migrations
                     b.ToTable("Brands");
                 });
 
+            modelBuilder.Entity("ChocolateShopApi.Models.BrandCategory", b =>
+                {
+                    b.Property<int>("BrandId");
+
+                    b.Property<int>("CategoryId");
+
+                    b.HasKey("BrandId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("BrandCategory");
+                });
+
             modelBuilder.Entity("ChocolateShopApi.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -47,15 +60,24 @@ namespace ChocolateShopApi.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("ChocolateShopApi.Models.CategoryProduct", b =>
+                {
+                    b.Property<int>("CategoryId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("CategoryId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CategoryProduct");
+                });
+
             modelBuilder.Entity("ChocolateShopApi.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BrandId");
-
-                    b.Property<int?>("CategoryId");
 
                     b.Property<byte[]>("Image");
 
@@ -64,22 +86,33 @@ namespace ChocolateShopApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ChocolateShopApi.Models.Product", b =>
+            modelBuilder.Entity("ChocolateShopApi.Models.BrandCategory", b =>
                 {
                     b.HasOne("ChocolateShopApi.Models.Brand", "Brand")
-                        .WithMany("Products")
-                        .HasForeignKey("BrandId");
+                        .WithMany("BrandCategories")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ChocolateShopApi.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .WithMany("BrandCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ChocolateShopApi.Models.CategoryProduct", b =>
+                {
+                    b.HasOne("ChocolateShopApi.Models.Category", "Category")
+                        .WithMany("CategoryProducts")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ChocolateShopApi.Models.Product", "Product")
+                        .WithMany("CategoryProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

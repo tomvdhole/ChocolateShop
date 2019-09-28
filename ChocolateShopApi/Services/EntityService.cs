@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ChocolateShopApi.Services
@@ -20,17 +21,22 @@ namespace ChocolateShopApi.Services
             Store = store ?? throw new ArgumentNullException(nameof(store));
         }
 
-        public async Task<IEnumerable<T>> GetEntities()
+        public async Task<IEnumerable<T>> GetEntities(params string[] navigationProperties)
         {
             Logger.LogInformation("Get Entities of type {EntityType}", typeof(T));
 
-            var models = await Store.Set<T>().ToListAsync();
+            IQueryable<T> query = Store.Set<T>();
+            if(navigationProperties != null)
+                foreach (var navigationProperty in navigationProperties)
+                    query = query.Include(navigationProperty);
+
+            var models = await query.AsNoTracking().ToListAsync();
             Logger.LogTrace("Received Entities: {ReceivedEntities}", models);
 
             return models;
         }
 
-        public async Task<T> GetEntity(int id)
+        public async Task<T> GetEntity(int id, params string[] navigationProperties)
         {
             Logger.LogInformation("Get Entity of type {EntityType} with Id {EntityId}", typeof(T), id);
 
@@ -40,7 +46,12 @@ namespace ChocolateShopApi.Services
                 throw new EntityException($"id must be > 0, passed id = {id}");
             }
 
-            var model = await Store.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+            IQueryable<T> query = Store.Set<T>();
+            if (navigationProperties != null)
+                foreach (var navigationProperty in navigationProperties)
+                    query = query.Include(navigationProperty);
+
+            var model = await query.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
             Logger.LogTrace("Received entity: {ReceivedEntity}", model);
 
             return model;

@@ -25,5 +25,11 @@ namespace ChocolateShopApi.Controllers
 
         protected async override Task PutEntity(EntityViewModel model)
            => await Service.PutEntity(new Category { Id = model.Id, Name = model.Name });
+
+        protected async override Task<IEnumerable<Category>> GetEntitiesWithIncludes()
+           => await Service.GetEntities("BrandCategories.Brand", "CategoryProducts.Product");
+
+        protected async override Task<Category> GetEntityWithIncludes(int id)
+            => await Service.GetEntity(id, "BrandCategories.Brand", "CategoryProducts.Product");
     }
 }

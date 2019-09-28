@@ -59,11 +59,6 @@ body {
 /* Own css */
 
 .thumbnail {
-    width: 100px;
-    height: 30px;
-}
-
-
-.card-width {
-    width: 100px;
+    height: 250px;
+    width: 100%;
 }

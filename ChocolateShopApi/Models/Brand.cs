@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChocolateShopApi.Models
 {
@@ -7,11 +6,10 @@ namespace ChocolateShopApi.Models
     {
         public Brand()
         {
-            Products = new List<Product>();
+            BrandCategories = new List<BrandCategory>();
         }
 
-        [ForeignKey("BrandId")]
-        public IEnumerable<Product> Products { get; set; }
+        public IList<BrandCategory> BrandCategories { get; set; }
     }
 }
 

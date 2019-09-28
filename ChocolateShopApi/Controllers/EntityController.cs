@@ -41,7 +41,7 @@ namespace ChocolateShopApi.Controllers
 
             try
             {
-                var entities = await Service.GetEntities();
+                var entities = await GetEntitiesWithIncludes();
 
                 Logger.LogTrace("Received Entities: {ReceivedEntities}", entities);
 
@@ -73,7 +73,7 @@ namespace ChocolateShopApi.Controllers
 
             try
             {
-                var entity = await Service.GetEntity(id);
+                var entity = await GetEntityWithIncludes(id);
                 if (entity == null)
                 {
                     Logger.LogWarning("Entity with {EntityWithIdNotFound} not found", id);
@@ -263,6 +263,8 @@ namespace ChocolateShopApi.Controllers
         protected abstract TViewModel GetViewModel(TEntity entity);
         protected abstract Task<TEntity> PostEntity(TViewModel model);
         protected abstract Task PutEntity(TViewModel model);
+        protected abstract Task<IEnumerable<TEntity>> GetEntitiesWithIncludes();
+        protected abstract Task<TEntity> GetEntityWithIncludes(int id);
     }
 }
 

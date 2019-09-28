@@ -7,11 +7,12 @@ namespace ChocolateShopApi.Models
     {
         public Category()
         {
-            Products = new List<Product>();
+            BrandCategories = new List<BrandCategory>();
+            CategoryProducts = new List<CategoryProduct>();
         }
 
-        [ForeignKey("CategoryId")]
-        public IEnumerable<Product> Products { get; set; }
+        public IList<BrandCategory> BrandCategories { get; set; }
+        public IList<CategoryProduct> CategoryProducts { get; set; }
     }
 }
 

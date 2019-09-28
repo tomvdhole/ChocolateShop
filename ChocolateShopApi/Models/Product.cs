@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
 namespace ChocolateShopApi.Models
 {
@@ -6,13 +6,12 @@ namespace ChocolateShopApi.Models
     {
         public byte[] Image { get; set; }
 
-        [ForeignKey(nameof(Brand))]
-        public int? BrandId { get; set; }
-        public Brand Brand { get; set; }
+        public Product()
+        {
+            CategoryProducts = new List<CategoryProduct>();
+        }
 
-        [ForeignKey(nameof(Category))]
-        public int? CategoryId { get; set; }
-        public Category Category { get; set; }
+        public IList<CategoryProduct> CategoryProducts { get; set; }
     }
 }
 
