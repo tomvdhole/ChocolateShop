@@ -31,25 +31,29 @@ namespace ChocolateShop.Controllers
             Logger.LogInformation($"Request: {Request.GetDisplayUrl()}");
             Logger.LogInformation($"Get Home page");
 
-            try
-            {
-                var models = await Client.GetEntities(Options.Products);
-                Logger.LogTrace("Received models: ", models);
+            return View();
 
-                return View(models);
-            }
-            catch(ClientException e)
-            {
-                Logger.LogWarning("{ClientException}", e.Message);
+            // commented out for debugging reasons
 
-                return View();
-            }
-            catch(Exception e)
-            {
-                Logger.LogCritical("Critical error: {CriticalErrorStackTrace}", e.StackTrace);
+            //try
+            //{
+            //    var models = await Client.GetEntities(Options.Products);
+            //    Logger.LogTrace("Received models: ", models);
 
-                return RedirectToAction("Error", "Error");
-            }
+            //    return View(models);
+            //}
+            //catch(ClientException e)
+            //{
+            //    Logger.LogWarning("{ClientException}", e.Message);
+
+            //    return View();
+            //}
+            //catch(Exception e)
+            //{
+            //    Logger.LogCritical("Critical error: {CriticalErrorStackTrace}", e.StackTrace);
+
+            //    return RedirectToAction("Error", "Error");
+            //}
         }
 
         public IActionResult Privacy()

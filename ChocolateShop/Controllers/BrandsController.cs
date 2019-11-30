@@ -34,6 +34,7 @@ namespace ChocolateShopApp.Controllers
             Logger.LogInformation($"Request: {Request.GetDisplayUrl()}");
             Logger.LogInformation($"Get Brands Home page");
 
+
             try
             {
                 var models = await Client.GetEntities(Options.GetBrands);
@@ -41,7 +42,7 @@ namespace ChocolateShopApp.Controllers
 
                 return View(models);
             }
-            catch(ClientException e)
+            catch (ClientException e)
             {
                 Logger.LogWarning("{ClientException}", e.Message);
 
