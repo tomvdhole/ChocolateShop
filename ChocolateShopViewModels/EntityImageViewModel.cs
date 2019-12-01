@@ -2,7 +2,7 @@
 
 namespace ChocolateShopViewModels
 {
-    public class EntityImageViewModel: EntityViewModelBase
+    public class EntityImageViewModel:EntityViewModel
     {
         public byte[] Image { get; set; }
     }

@@ -3,5 +3,5 @@
 namespace ChocolateShopViewModels
 {
     public class EntityViewModel: EntityViewModelBase
-    { }
+    {}
 }

@@ -8,11 +8,9 @@ namespace ChocolateShopViewModels
     {
         public CategoryViewModel()
         {
-            BrandCategories = new List<BrandCategoryViewModel>();
-            CategoryProducts = new List<CategoryProductViewModel>();
+            Products = new List<ProductViewModel>();
         }
 
-        public IList<BrandCategoryViewModel> BrandCategories { get; set; }
-        public IList<CategoryProductViewModel> CategoryProducts { get; set; }
+        public IList<ProductViewModel> Products { get; set; }
     }
 }
