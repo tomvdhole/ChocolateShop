@@ -35,51 +35,19 @@ namespace ChocolateShopApi.Controllers
 
 
         private IList<BrandCategoryViewModel> GetBrandCategoryViewModels(IList<BrandCategory> brandCategories)
-        {
-            var model = new List<BrandCategoryViewModel>();
-
-            foreach(var bc in brandCategories)
-                model.Add(new BrandCategoryViewModel { Brand = GetBrandViewModel(bc.Brand), BrandId = bc.BrandId, Category = GetCategoryViewModel(bc.Category), CategoryId = bc.CategoryId });
-
-            return model;
-        }
-
-        private BrandViewModel GetBrandViewModel(Brand brand)
-            => new BrandViewModel { Id = brand.Id, Name = brand.Name };
+            => brandCategories.Select(bc => new BrandCategoryViewModel { Category = GetCategoryViewModel(bc.Category), CategoryId = bc.CategoryId }).ToList();
+       
 
         private CategoryViewModel GetCategoryViewModel(Category category)
             => new CategoryViewModel { Id = category.Id, Name = category.Name, CategoryProducts = GetCategoryProductViewModel(category.CategoryProducts)};
 
 
         private IList<CategoryProductViewModel> GetCategoryProductViewModel(IList<CategoryProduct> categoryProducts)
-        {
-            var model = new List<CategoryProductViewModel>();
-
-            foreach (var cp in categoryProducts)
-                model.Add(new CategoryProductViewModel { Category = null, CategoryId = cp.CategoryId, Product = GetProductViewModel(cp.Product), ProductId = cp.ProductId });
-
-            return model;
-        }
-
+            => categoryProducts.Select(cp => new CategoryProductViewModel { Product = GetProductViewModel(cp.Product), ProductId = cp.ProductId }).ToList();
+       
         private ProductViewModel GetProductViewModel(Product product)
             => new ProductViewModel { Id = product.Id, Name = product.Name, Image = product.Image };
 
-
-        //private IList<BrandCategory> GetBrandCategories(IList<BrandCategoryViewModel> brandCategories)
-        //{
-        //    var model = new List<BrandCategory>();
-
-        //    foreach (var bc in brandCategories)
-        //        model.Add(new BrandCategory { Brand = GetBrand(bc.Brand), BrandId = bc.BrandId, Category = GetCategory(bc.Category), CategoryId = bc.CategoryId });
-
-        //    return model;
-        //}
-
-        //private Brand GetBrand(BrandViewModel model)
-        //    => new Brand { Id = model.Id, Name = model.Name };
-
-        //private Category GetCategory(CategoryViewModel model)
-        //    => new Category { Id = model.Id, Name = model.Name };
     }
 }
 
