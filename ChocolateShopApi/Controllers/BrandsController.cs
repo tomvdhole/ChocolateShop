@@ -34,6 +34,7 @@ namespace ChocolateShopApi.Controllers
             => await Service.GetEntity(id, "BrandCategories.Category.CategoryProducts.Product");
 
 
+        #region Private methods for GetViewModels/GetViewModel
         private IList<BrandCategoryViewModel> GetBrandCategoryViewModels(IList<BrandCategory> brandCategories)
             => brandCategories.Select(bc => new BrandCategoryViewModel { Category = GetCategoryViewModel(bc.Category), CategoryId = bc.CategoryId }).ToList();
        
@@ -47,6 +48,7 @@ namespace ChocolateShopApi.Controllers
        
         private ProductViewModel GetProductViewModel(Product product)
             => new ProductViewModel { Id = product.Id, Name = product.Name, Image = product.Image };
+        #endregion Private methods for GetViewModels/GetViewModel
 
     }
 }
