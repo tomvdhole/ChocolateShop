@@ -17,7 +17,6 @@ namespace ChocolateShopApi.Controllers
         protected override IEnumerable<BrandViewModel> GetViewModels(IEnumerable<Brand> entities)
             => entities.Select(e => new BrandViewModel { Id = e.Id, Name = e.Name, BrandCategories = GetBrandCategoryViewModels(e.BrandCategories) });
         
-       
         protected override BrandViewModel GetViewModel(Brand entity)
             => new BrandViewModel { Id = entity.Id, Name = entity.Name , BrandCategories = GetBrandCategoryViewModels(entity.BrandCategories)};
 
